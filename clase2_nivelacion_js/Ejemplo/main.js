@@ -1,7 +1,7 @@
 // Esperar a que el contenido del DOM este completamente cargado
 
 document.addEventListener('DOMContentLoaded', function () {
-	//Asocia la función agregarMascota al evento  click del boton AgregarMascota
+	//Asocia la función agregarMascota al evento  click del boton AgregarMascota 2024
 	document.getElementById('agregarMascota').addEventListener('click', agregarMascota)
 })
 

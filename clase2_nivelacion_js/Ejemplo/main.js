@@ -1,11 +1,12 @@
-// Esperar a que el contenido del DOM este cargado
+// Esperar a que el contenido del DOM este completamente cargado
 
 document.addEventListener('DOMContentLoaded', function () {
+	//Asocia la función agregarMascota al evento  click del boton AgregarMascota
 	document.getElementById('agregarMascota').addEventListener('click', agregarMascota)
 })
 
 /**
- * Función para agregar nueva mascota a la lista.
+ * Función para agregar una nueva mascota a la lista.
  */
 function agregarMascota(){
 //Obtenemos el valor del input 'nuevaMascota' y eliminamos espacios en blanco

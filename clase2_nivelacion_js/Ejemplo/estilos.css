@@ -57,6 +57,7 @@ body{
 	list-style-type: none;
 	padding: 0;
 	width: 100%;
+	display: flex;
 }
 .mascota{
 	font-size: 1.6rem;
@@ -68,6 +69,15 @@ body{
 	border-radius: 5px;
 	margin-bottom: 1rem;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0, 0.1);
+}
+.mascota button{
+	padding: 0.8rem 2rem;
+	margin-left: 2rem;
+	background-color: red;
+	color: white;
+	font-weight: 600;
+	border-radius: 5px;
+	border: none;
 }
 .footer{
 	background-color: #767474;

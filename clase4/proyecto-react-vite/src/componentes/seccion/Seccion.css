@@ -1,12 +1,11 @@
 .seccion{
-	background-color: #f3f3f3;
-	border: 2px solid #343434;
+	background-color: rgb(213, 207, 207);
+	border: 2px solid #ffcc00;;
 	padding: 2rem;
-	color: black;
 	margin: 2rem;
+	color: black;
 	text-align: center;
 }
 .seccion img{
 	max-width: 100%;
-	
 }

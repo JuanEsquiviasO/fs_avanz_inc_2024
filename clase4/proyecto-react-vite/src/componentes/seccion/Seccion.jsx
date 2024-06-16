@@ -22,4 +22,4 @@ function Seccion() {
 	)
 }
 
-export default Seccion
+export default Seccion;

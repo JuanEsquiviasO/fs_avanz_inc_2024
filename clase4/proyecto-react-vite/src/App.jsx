@@ -6,6 +6,8 @@ import Footer from './componentes/footer/Footer'
 import Seccion from './componentes/seccion/Seccion'
 import Menu from './componentes/menu/Menu'
 import ListaCasas from './componentes/casas/ListaCasas'
+import FormularioDePociones from './componentes/pociones/FormularioDePociones'
+import GestionPociones from './componentes/pociones/GestionPociones'
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
 			<main>
 				<Routes>
 					<Route path = "/" element={ <Seccion /> }></Route>
+					<Route path = "/pociones" element={ <GestionPociones /> }></Route>
+					{/* <Route path = "/pociones" element={ <FormularioDePociones /> }></Route> */}
 					<Route path = "/casas" element={ <ListaCasas /> }></Route>
 				</Routes>
 			</main>

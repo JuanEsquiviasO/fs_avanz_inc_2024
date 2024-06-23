@@ -6,7 +6,7 @@ const GestionPociones = () => {
 	//Estado para almacenar Pociones
 	const [pociones, setPociones] = useState([])
 
-	//Carga inicial de Pociones en Local Storage
+	//// Carga inicial de Pociones en Local Storage
 	useEffect(() => {
 		const pocionesGuardadas = JSON.parse(localStorage.getItem('pociones'))
 			// console.log('Pociones cargadas: ', pocionesGuardadas)

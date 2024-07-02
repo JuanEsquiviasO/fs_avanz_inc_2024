@@ -1,56 +1,60 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const app = express();
+const path = require('path');
+const hbs = require('hbs');
 
-const path = require('path')
+// Middleware para servir archivos estáticos desde la carpeta 'public'
+app.use(express.static(path.join(__dirname, 'public')));
 
-//middleware para ervir contenidos estaticos desde la carpeta public
-app.use(express.static(path.join(__dirname, 'public')))
+// Configuración de Handlebars
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
 
-app.set('view engine', 'hbs')
-app.set('views', (path.join(__dirname, 'views')))
 
-app.get('/',  (req, res) => {
+// Registrar parciales
+hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
+
+
+
+// Rutas
+app.get('/', (req, res) => {
   res.render('index', {
-		title: 'Inicio',
-		message: 'Bienvenidos a nuestra app Express con Handlebars'
-	})
-})
+    layout: 'layouts/main',
+    title: 'Inicio',
+    message: 'Bienvenidos a nuestra aplicación express con Handlebars'
+  });
+});
 
-app.get('/about us',  (req, res) => {
-  res.send('About Us')
-})
+app.get('/acerca', (req, res) => {
+  res.render('acerca', {
+    layout: 'layouts/main',
+    title: 'Acerca de nosotros',
+    message: 'Información sobre nuestra aplicacion.'
+  });
+});
 
-app.get('/contacto',  (req, res) => {
-  res.send('Contacto')
-})
+app.get('/contacto', (req, res) => {
+  res.render('contacto', {
+    layout: 'layouts/main',
+    title: 'Contacto',
+    message: 'Página de contacto'
+  });
+});
 
-app.get('/usuarios',  (req, res) => {
-	const usuarios = [
-		{nombre: 'Roy Fokker', email: 'rfokker@sdf1.com'},
-		{nombre: 'Max Sterling', email: 'msterling@sdf1.com'}
-	]
-  res.render('Usuarios', { usuarios })
-})
+app.get('/usuarios', (req, res) => {
+  const usuarios = [
+    { nombre: 'Cosme Fulano', email: 'cosme@gmail.com' },
+    { nombre: 'Cosmecito Fulanito', email: 'fulanito@gmail.com' }
+  ];
+  res.render('usuarios', { usuarios });
+});
 
-app.get('/enviar-formularios',  (req, res) => {
-  res.send('Formulario enviado')
-})
+// Manejo de errores 404
+app.use((req, res, next) => {
+  res.status(404).render('error404', { title: 'Página no encontrada' });
+});
 
-app.post('/actualizar-datos',  (req, res) => {
-  res.send('Datos Actualizados')
-})
-
-app.put('/actualizar-datos',  (req, res) => {
-  res.send('Datos Actualizados')
-})
-
-app.delete('/eliminar-datos',  (req, res) => {
-  res.send('Datos Eliminados')
-})
-
-
-
-app.listen(port, () => {
-	console.log(`Server running in http://localhost:${port}`)
-})
+// Iniciar servidor
+app.listen(3000, () => {
+  console.log('Servidor corriendo en http://localhost:3000');
+});

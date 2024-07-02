@@ -3,17 +3,14 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="/styles/estilos.css">
-	<title>Usuarios</title>
+	<link rel="stylesheet" href="/css/estilos.css">
+	<title>{{title}}</title>
 </head>
 <body>
+	{{> header }}
 	{{> nav}}
 	<div class="container">
-		<h1>Lista de Usuarios</h1>
-		{{#each usuarios}}
-		<li> {{nombre}} - {{email}} </li>
-		{{/each}}
-		<a href="/">Volver al inicio</a>
+		{{{body}}}
 	</div>
 </body>
 </html>

@@ -12,11 +12,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
-
 // Registrar parciales
 hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
-
-
 
 // Rutas
 app.get('/', (req, res) => {
@@ -85,7 +82,6 @@ app.get('/personajes/casa/:house', async(req, res) => {
     res.status(500).send('Error al obtener personajes');
   }
 })
-
 
 // Manejo de errores 404
 app.use((req, res, next) => {

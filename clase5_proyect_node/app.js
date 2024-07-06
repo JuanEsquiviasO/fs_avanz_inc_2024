@@ -52,12 +52,34 @@ app.get('/usuarios', (req, res) => {
 });
 
 //Ruta para mostras personajes
-app.get('/personajes/', async(req, res) => {
+app.get("/personajes", async(req, res) => {
   try {
     const response = await axios.get('https://hp-api.herokuapp.com/api/characters');
-    
+
     const characters = response.data;
-    res.render('personajes', {characters});
+    res.render('personajes', { characters });
+  } catch(error){
+    console.error('Error al obtener personajes populares', error);
+    res.status(500).send('Error al obtener personajes');
+  }
+})
+
+//Ruta para mostras personajes filtrados por casa
+app.get('/personajes/casa/:house', async(req, res) => {
+  const house = req.params.house; //Obtener el parametro 'house' de la consulta
+  try {
+    let apiUrl = 'https://hp-api.herokuapp.com/api/characters';
+    if(house){
+      apiUrl += `?house={house}`;
+    }
+    const response = await axios.get(`https://hp-api.herokuapp.com/api/characters/house/${house}`);
+    const characters = response.data;
+    //Renderizar vista correspondiente por casa
+    if (house) {
+      res.render('personajes-casa', {characters, house});
+    } else{
+      res.render('personajes', {characters});
+    }
   } catch(error){
     console.error('Error al obtener personajes populares', error);
     res.status(500).send('Error al obtener personajes');

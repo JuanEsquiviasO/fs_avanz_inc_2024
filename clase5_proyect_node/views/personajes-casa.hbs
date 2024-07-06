@@ -3,14 +3,14 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Personajes</title>
+	<title>Personajes por casa</title>
 </head>
 <body>
-	<h1>Personajes</h1>
-	<ul>
-	{{#each characters}}
-		<li>  {{name}} - {{house}}</li>
-	{{/each}}
-	</ul>
+	<h2>Personajes por - Casa {{ house }}</h2>
+		<ul>
+		{{#each characters}}
+			<li> {{name}} - {{house}} </li>
+		{{/each}}
+		</ul>
 </body>
 </html>

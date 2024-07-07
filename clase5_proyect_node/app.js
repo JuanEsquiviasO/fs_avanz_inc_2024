@@ -1,9 +1,16 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-require('dotenv').config();
+const dotenv = require('dotenv');
 const hbs = require('hbs');
-const { default: axios } = require('axios');
+
+//Importar Rutas
+const uploadRouter = require('./routes/uploadRoutes');
+
+//Cargar variable de entorno
+dotenv.config();
+const axios = require('axios');
+const PORT = process.env.PORT || 3000;
 
 // Middleware para servir archivos estáticos desde la carpeta 'public'
 app.use(express.static(path.join(__dirname, 'public')));
@@ -11,11 +18,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Configuración de Handlebars
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
-
 // Registrar parciales
 hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
 
-// Rutas
+
+//Configuración de Rutas
+// app.use('/upload-form', uploadRouter);
+app.use('/upload', uploadRouter);
+
+
+//Rutas Principales
+//Ruta principal
 app.get('/', (req, res) => {
   res.render('index', {
     layout: 'layouts/main',
@@ -24,11 +37,31 @@ app.get('/', (req, res) => {
   });
 });
 
+/**
+//Ruta para mostrar el formulario de carga de archivos
+app.get('/upload-form', (req, res) => {
+  res.render('upload-form', {
+    layout: 'layouts/main',
+    title: 'Carga de Archivos',
+    message: 'Formulario de carga de archivos.'
+  })
+})
+
+//Ruta para manejar la carga del archivo(POST)
+app.post('/upload', upload.single('file'), (req, res) => {
+  res.render('upload-success', {
+    title: 'Carga Exitosa',
+    message: 'Archivo cargado exitosamente.',
+    filename: req.file.filename,
+  });
+})
+*/
+
 app.get('/acerca', (req, res) => {
   res.render('acerca', {
     layout: 'layouts/main',
     title: 'Acerca de nosotros',
-    message: 'Información sobre nuestra aplicacion.'
+    message: 'Información acerca de nuestra aplicación.',
   });
 });
 
@@ -42,17 +75,16 @@ app.get('/contacto', (req, res) => {
 
 app.get('/usuarios', (req, res) => {
   const usuarios = [
-    { nombre: 'Cosme Fulano', email: 'cosme@gmail.com' },
-    { nombre: 'Cosmecito Fulanito', email: 'fulanito@gmail.com' }
+    { nombre: 'Roy Fokker', email: 'rfokker@sdf1.com' },
+    { nombre: 'Rick Hunter', email: 'rhunter@sdf1.com' }
   ];
   res.render('usuarios', { usuarios });
 });
 
-//Ruta para mostras personajes
+//Ruta para mostras todos los personajes
 app.get("/personajes", async(req, res) => {
   try {
     const response = await axios.get('https://hp-api.herokuapp.com/api/characters');
-
     const characters = response.data;
     res.render('personajes', { characters });
   } catch(error){
@@ -63,20 +95,11 @@ app.get("/personajes", async(req, res) => {
 
 //Ruta para mostras personajes filtrados por casa
 app.get('/personajes/casa/:house', async(req, res) => {
-  const house = req.params.house; //Obtener el parametro 'house' de la consulta
+  const house = req.params.house; 
   try {
-    let apiUrl = 'https://hp-api.herokuapp.com/api/characters';
-    if(house){
-      apiUrl += `?house={house}`;
-    }
     const response = await axios.get(`https://hp-api.herokuapp.com/api/characters/house/${house}`);
     const characters = response.data;
-    //Renderizar vista correspondiente por casa
-    if (house) {
-      res.render('personajes-casa', {characters, house});
-    } else{
-      res.render('personajes', {characters});
-    }
+    res.render('personajes-casa', { characters, house });
   } catch(error){
     console.error('Error al obtener personajes populares', error);
     res.status(500).send('Error al obtener personajes');
@@ -89,6 +112,7 @@ app.use((req, res, next) => {
 });
 
 // Iniciar servidor
-app.listen(3000, () => {
-  console.log('Servidor corriendo en http://localhost:3000');
+
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
